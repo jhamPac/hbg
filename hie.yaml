@@ -1,0 +1,13 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "hbg:lib"
+
+    - path: "./app/Main.hs"
+      component: "hbg:exe:hbg-exe"
+
+    - path: "./app/Paths_hbg.hs"
+      component: "hbg:exe:hbg-exe"
+
+    - path: "./test"
+      component: "hbg:test:hbg-test"
