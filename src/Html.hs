@@ -1,15 +1,26 @@
 module Html where
 
+myhtml :: String
 myhtml = html' (body' "Application hbg")
 
+makeHtml :: String -> String -> String
 makeHtml title content = html' (head' (title' title) <> body' content)
 
-html' content = "<html>" <> content <> "</html>"
 
-body' content = "<body>" <> content <> "</html>"
+html' :: String -> String
+html' = el "html"
 
-head' content = "<head>" <> content <> "</head>"
+body' :: String -> String
+body' = el "body"
 
-title' content = "<title>" <> content <> "</title>"
+head' :: String -> String
+head' = el "head"
+
+title' :: String -> String
+title' = el "title"
+
+el :: String -> String -> String
+el tag content =
+    "<" <> tag <> ">" <> content <> "</" <> tag <> ">"
 
 
