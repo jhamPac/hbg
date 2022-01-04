@@ -25,8 +25,13 @@ el :: String -> String -> String
 el tag content =
     "<" <> tag <> ">" <> content <> "</" <> tag <> ">"
 
-html' :: String -> String
-html' = el "html"
+html' :: Title -> Structure -> Html
+html' title content =
+    Html
+        ( el "html"
+            (el "head" (el "title" title))
+            <> el "body" (getStructureString content)
+        )
 
 body' :: String -> String
 body' = el "body"
@@ -45,6 +50,11 @@ h1 = el "h1"
 
 append' :: Structure -> Structure -> Structure
 append' (Structure a) (Structure b) = Structure (a <> b)
+
+getStructureString :: Structure -> String
+getStructureString content =
+    case content of
+        Structure str -> str
 
 render :: Html -> String
 render html =
