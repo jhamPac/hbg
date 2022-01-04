@@ -1,4 +1,13 @@
-module Html where
+module Html
+     ( Html
+    , Title
+    , Structure
+    , html'
+    , p'
+    , append'
+    , render
+    )
+    where
 
 myhtml :: String
 myhtml = html' (body' "Application hbg")
@@ -9,6 +18,8 @@ makeHtml title content = html' (head' (title' title) <> body' content)
 newtype Html = Html String
 
 newtype Structure = Structure String
+
+type Title = String
 
 el :: String -> String -> String
 el tag content =
