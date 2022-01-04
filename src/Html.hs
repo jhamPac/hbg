@@ -16,32 +16,37 @@ newtype Structure = Structure String
 
 type Title = String
 
-el :: String -> String -> String
-el tag content =
-    "<" <> tag <> ">" <> content <> "</" <> tag <> ">"
-
 html' :: Title -> Structure -> Html
 html' title content =
     Html
         ( el "html"
-            (el "head" (el "title" title))
+            (el "head" (el "title" $ escape title))
             <> el "body" (getStructureString content)
         )
 
-body' :: String -> Structure
-body' = Structure . el "body"
-
-head' :: String -> Structure
-head' = Structure . el "head"
-
-title' :: String -> Structure
-title' = Structure . el "title"
+el :: String -> String -> String
+el tag content =
+    "<" <> tag <> ">" <> content <> "</" <> tag <> ">"
 
 p' :: String -> Structure
-p' = Structure . el "p"
+p' = Structure . el "p" . escape
 
 h1' :: String -> Structure
-h1' = Structure . el "h1"
+h1' = Structure . el "h1" . escape
+
+escape :: String -> String
+escape =
+    let
+        escapeChar c =
+            case c of
+                '<'  -> "&lt;"
+                '>'  -> "&gt;"
+                '&'  -> "&amp;"
+                '"'  -> "&quot;"
+                '\'' -> "&#39;"
+                _    -> [c]
+    in
+        concatMap escapeChar
 
 append' :: Structure -> Structure -> Structure
 append' x y = Structure (getStructureString x <> getStructureString y)
