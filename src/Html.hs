@@ -4,16 +4,11 @@ module Html
     , Structure
     , html'
     , p'
+    , h1'
     , append'
     , render
     )
     where
-
-myhtml :: String
-myhtml = html' (body' "Application hbg")
-
-makeHtml :: String -> String -> String
-makeHtml title content = html' (head' (title' title) <> body' content)
 
 newtype Html = Html String
 
@@ -33,23 +28,23 @@ html' title content =
             <> el "body" (getStructureString content)
         )
 
-body' :: String -> String
-body' = el "body"
+body' :: String -> Structure
+body' = Structure . el "body"
 
-head' :: String -> String
-head' = el "head"
+head' :: String -> Structure
+head' = Structure . el "head"
 
-title' :: String -> String
-title' = el "title"
+title' :: String -> Structure
+title' = Structure . el "title"
 
 p' :: String -> Structure
 p' = Structure . el "p"
 
-h1 :: String -> String
-h1 = el "h1"
+h1' :: String -> Structure
+h1' = Structure . el "h1"
 
 append' :: Structure -> Structure -> Structure
-append' (Structure a) (Structure b) = Structure (a <> b)
+append' x y = Structure (getStructureString x <> getStructureString y)
 
 getStructureString :: Structure -> String
 getStructureString content =
