@@ -1,6 +1,6 @@
 module Main where
 
-import           Html
+import           Html (Html, append', h1', html', p', render)
 
 
 myhtml :: Html
