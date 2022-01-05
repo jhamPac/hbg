@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       Html
+      Html.Internal
   other-modules:
       Paths_hbg
   hs-source-dirs:
