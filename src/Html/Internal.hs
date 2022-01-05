@@ -1,10 +1,14 @@
 module Html.Internal where
 
+-- * Types
+
 newtype Html = Html String
 
 newtype Structure = Structure String
 
 type Title = String
+
+-- * EDSL
 
 html' :: Title -> Structure -> Html
 html' title content =
@@ -13,10 +17,6 @@ html' title content =
             (el "head" (el "title" $ escape title))
             <> el "body" (getStructureString content)
         )
-
-el :: String -> String -> String
-el tag content =
-    "<" <> tag <> ">" <> content <> "</" <> tag <> ">"
 
 p' :: String -> Structure
 p' = Structure . el "p" . escape
@@ -35,6 +35,27 @@ ol' :: [Structure] -> Structure
 ol' =
     Structure . el "ol" . concatMap (el "li" . getStructureString)
 
+append' :: Structure -> Structure -> Structure
+append' x y = Structure (getStructureString x <> getStructureString y)
+
+-- * Render
+
+render :: Html -> String
+render html =
+    case html of
+        Html str -> str
+
+-- * Utils
+
+el :: String -> String -> String
+el tag content =
+    "<" <> tag <> ">" <> content <> "</" <> tag <> ">"
+
+getStructureString :: Structure -> String
+getStructureString content =
+    case content of
+        Structure str -> str
+
 escape :: String -> String
 escape =
     let
@@ -48,16 +69,3 @@ escape =
                 _    -> [c]
     in
         concatMap escapeChar
-
-append' :: Structure -> Structure -> Structure
-append' x y = Structure (getStructureString x <> getStructureString y)
-
-getStructureString :: Structure -> String
-getStructureString content =
-    case content of
-        Structure str -> str
-
-render :: Html -> String
-render html =
-    case html of
-        Html str -> str
