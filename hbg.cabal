@@ -27,6 +27,7 @@ library
   exposed-modules:
       Html
       Html.Internal
+      Markup
   other-modules:
       Paths_hbg
   hs-source-dirs:
