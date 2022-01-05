@@ -24,6 +24,17 @@ p' = Structure . el "p" . escape
 h1' :: String -> Structure
 h1' = Structure . el "h1" . escape
 
+code' :: String -> Structure
+code' = Structure . el "pre"
+
+ul' :: [Structure] -> Structure
+ul' =
+    Structure . el "ul" . concatMap (el "li" . getStructureString)
+
+ol' :: [Structure] -> Structure
+ol' =
+    Structure . el "ol" . concatMap (el "li" . getStructureString)
+
 escape :: String -> String
 escape =
     let
