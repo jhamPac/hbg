@@ -6,6 +6,10 @@ newtype Html = Html String
 
 newtype Structure = Structure String
 
+instance Semigroup Structure where
+    (<>) c1 c2 =
+        Structure (getStructureString c1 <> getStructureString c2)
+
 type Title = String
 
 -- * EDSL
@@ -34,9 +38,6 @@ ul' =
 ol' :: [Structure] -> Structure
 ol' =
     Structure . el "ol" . concatMap (el "li" . getStructureString)
-
-append' :: Structure -> Structure -> Structure
-append' x y = Structure (getStructureString x <> getStructureString y)
 
 -- * Render
 
