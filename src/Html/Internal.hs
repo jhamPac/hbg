@@ -47,9 +47,7 @@ code' = Structure . el "pre"
 -- * Render
 
 render :: Html -> String
-render html =
-    case html of
-        Html str -> str
+render (Html s) = s
 
 -- * Utils
 
