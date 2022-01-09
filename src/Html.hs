@@ -5,6 +5,8 @@ module Html
     , html'
     , p'
     , h1'
+    , ul'
+    , ol'
     , render
     )
     where
