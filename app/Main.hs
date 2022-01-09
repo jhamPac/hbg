@@ -1,13 +1,14 @@
 module Main where
 
-import           Html (Html, Structure, h', html', p', render)
+import           Convert
+import qualified Html
+import qualified Markup
+import           System.Directory
+import           System.Environment
+import           System.IO          ()
 
-
-myhtml :: Html
-myhtml =
-    html' "The Title" (h' 1 "Header" <> p' "Paragraph #1" <> p' "Paragraph #2")
-
-
+process :: Html.Title -> String -> String
+process title = Html.render . convert title . Markup.parse
 
 main :: IO ()
-main = print (render myhtml)
+main = print "start over"
