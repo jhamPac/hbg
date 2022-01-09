@@ -4,9 +4,10 @@ module Html
     , Structure
     , html'
     , p'
-    , h1'
+    , h'
     , ul'
     , ol'
+    , code'
     , render
     )
     where

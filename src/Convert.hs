@@ -6,8 +6,8 @@ import qualified Markup
 convertStructure :: Markup.Structure -> Html.Structure
 convertStructure structure =
     case structure of
-        Markup.Header 1 txt ->
-            Html.h1' txt
+        Markup.Header n txt ->
+            Html.h' n txt
 
         Markup.Paragraph p ->
             Html.p' p
@@ -19,4 +19,4 @@ convertStructure structure =
             Html.ol' $ map Html.p' list
 
         Markup.CodeBlock list ->
-            Html.code (unlines list)
+            Html.code' (unlines list)

@@ -1,5 +1,7 @@
 module Html.Internal where
 
+import           Numeric.Natural
+
 -- * Types
 
 newtype Html = Html String
@@ -25,11 +27,8 @@ html' title content =
 p' :: String -> Structure
 p' = Structure . el "p" . escape
 
-h1' :: String -> Structure
-h1' = Structure . el "h1" . escape
-
-code' :: String -> Structure
-code' = Structure . el "pre"
+h' :: Natural -> String -> Structure
+h' n = Structure . el ("h" <> show n) . escape
 
 ul' :: [Structure] -> Structure
 ul' =
@@ -38,6 +37,9 @@ ul' =
 ol' :: [Structure] -> Structure
 ol' =
     Structure . el "ol" . concatMap (el "li" . getStructureString)
+
+code' :: String -> Structure
+code' = Structure . el "pre"
 
 -- * Render
 
