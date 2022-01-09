@@ -41,6 +41,9 @@ ol' =
 code' :: String -> Structure
 code' = Structure . el "pre"
 
+empty' :: Structure
+empty' = Structure ""
+
 -- * Render
 
 render :: Html -> String
@@ -72,3 +75,9 @@ escape =
                 _    -> [c]
     in
         concatMap escapeChar
+
+concatStructure :: [Structure] -> Structure
+concatStructure list =
+    case list of
+        []     -> empty'
+        x : xs -> x <> concatStructure xs
