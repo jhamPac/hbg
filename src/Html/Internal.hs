@@ -12,6 +12,9 @@ instance Semigroup Structure where
     (<>) c1 c2 =
         Structure (getStructureString c1 <> getStructureString c2)
 
+instance Monoid Structure where
+    mempty = Structure ""
+
 type Title = String
 
 -- * EDSL
@@ -40,9 +43,6 @@ ol' =
 
 code' :: String -> Structure
 code' = Structure . el "pre"
-
-empty' :: Structure
-empty' = Structure ""
 
 -- * Render
 
@@ -75,9 +75,3 @@ escape =
                 _    -> [c]
     in
         concatMap escapeChar
-
-concatStructure :: [Structure] -> Structure
-concatStructure list =
-    case list of
-        []     -> empty'
-        x : xs -> x <> concatStructure xs
