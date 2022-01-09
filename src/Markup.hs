@@ -29,7 +29,7 @@ parseLines context txts =
                 Just (UnorderedList list) ->
                     parseLines (Just (UnorderedList (list <> [trim line]))) rest
 
-                _ -> maybe id (:) context (parseLines (Just (UnorderedList [trim, line])) rest)
+                _ -> maybe id (:) context (parseLines (Just (UnorderedList [trim line])) rest)
 
         (currentLine : rest) ->
             let
