@@ -42,6 +42,7 @@ whenIO cond action = do
         then action
         else pure ()
 
+confirm :: IO Bool
 confirm = do
     putStrLn "Are you sure? (y/n)"
     answer <- getLine
