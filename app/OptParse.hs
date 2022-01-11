@@ -1,5 +1,8 @@
 module OptParse where
 
+import           Data.Maybe          (fromMaybe)
+import           Options.Applicative
+
 data Options
     = ConvertSingle SingleInput SingleOutput
     | ConvertDir FilePath FilePath
@@ -12,5 +15,5 @@ data SingleInput
 
 data SingleOutput
     = Stdout
-    | OutputFile Filepath
+    | OutputFile FilePath
     deriving Show

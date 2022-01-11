@@ -41,6 +41,7 @@ library
 executable hbg-exe
   main-is: Main.hs
   other-modules:
+      OptParse
       Paths_hbg
   hs-source-dirs:
       app
