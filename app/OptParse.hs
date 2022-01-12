@@ -41,3 +41,6 @@ pOutputFile = fmap OutputFile parser
                     <> metavar "File"
                     <> help "Output file"
                 )
+
+pConvertSingle :: Parser Options
+pConvertSingle = ConvertSingle <$> pInputFile <*> pOutputFile
