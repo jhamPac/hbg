@@ -1,23 +1,38 @@
 module OptParse where
 
+import           Control.Applicative
 import           Data.Maybe          (fromMaybe)
 import           Options.Applicative
 
+-----------------------------------------------------------------------------
+-- * CLI options model
+
+-- | Model
 data Options
     = ConvertSingle SingleInput SingleOutput
     | ConvertDir FilePath FilePath
     deriving Show
 
+-- | Single input source
 data SingleInput
     = Stdin
     | InputFile FilePath
     deriving Show
 
+-- | Single output location
 data SingleOutput
     = Stdout
     | OutputFile FilePath
     deriving Show
 
+-----------------------------------------------------------------------------
+-- * Single source and output parsers
+
+-- | Parser for single source to location
+pConvertSingle :: Parser Options
+pConvertSingle = ConvertSingle <$> pInputFile <*> pOutputFile
+
+-- | Input file parser
 pInputFile :: Parser SingleInput
 pInputFile = fmap InputFile parser
     where
@@ -30,6 +45,7 @@ pInputFile = fmap InputFile parser
                     <> help "Input file"
                 )
 
+-- | Output file parser
 pOutputFile :: Parser SingleOutput
 pOutputFile = fmap OutputFile parser
     where
@@ -42,9 +58,13 @@ pOutputFile = fmap OutputFile parser
                     <> help "Output file"
                 )
 
-pConvertSingle :: Parser Options
-pConvertSingle = ConvertSingle <$> pInputFile <*> pOutputFile
+-----------------------------------------------------------------------------
+-- * Directory conversion parser
 
+pConvertDir :: Parser Options
+pConvertDir = ConvertDir <$> pInputDir <*> pOutputDir
+
+-- | Parser for input directory
 pInputDir :: Parser FilePath
 pInputDir =
     strOption
@@ -55,6 +75,7 @@ pInputDir =
             <> help "Input directory"
         )
 
+-- | Parser for output directory
 pOutputDir :: Parser FilePath
 pOutputDir =
     strOption
@@ -64,6 +85,3 @@ pOutputDir =
             <> metavar "DIRECTORY"
             <> help "Output directory"
         )
-
-pConvertDir :: Parser Options
-pConvertDir = ConvertDir <$> pInputDir <*> pOutputDir
