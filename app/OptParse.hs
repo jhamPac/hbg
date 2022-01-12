@@ -44,3 +44,26 @@ pOutputFile = fmap OutputFile parser
 
 pConvertSingle :: Parser Options
 pConvertSingle = ConvertSingle <$> pInputFile <*> pOutputFile
+
+pInputDir :: Parser FilePath
+pInputDir =
+    strOption
+        (
+            long "input"
+            <> short 'i'
+            <> metavar "DIRECTORY"
+            <> help "Input directory"
+        )
+
+pOutputDir :: Parser FilePath
+pOutputDir =
+    strOption
+        (
+            long "output"
+            <> short 'o'
+            <> metavar "DIRECTORY"
+            <> help "Output directory"
+        )
+
+pConvertDir :: Parser Options
+pConvertDir = ConvertDir <$> pInputDir <*> pOutputDir
