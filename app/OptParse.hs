@@ -1,4 +1,11 @@
-module OptParse where
+module OptParse
+    (
+        Options(..)
+        , SingleInput(..)
+        , SingleOutput(..)
+        , parse
+    )
+    where
 
 import           Control.Applicative
 import           Data.Maybe          (fromMaybe)
