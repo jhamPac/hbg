@@ -6,7 +6,7 @@ import           OptParse
 import           System.Directory   (doesFileExist)
 import           System.Environment (getArgs)
 import           System.Exit        (exitFailure)
-import           System.IO          ()
+import           System.IO
 
 main :: IO ()
 main = do
