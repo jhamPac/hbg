@@ -7,9 +7,12 @@ module OptParse
     )
     where
 
-import           Control.Applicative
+import           Control.Applicative (optional, (<**>))
 import           Data.Maybe          (fromMaybe)
-import           Options.Applicative
+import           Options.Applicative (Parser, ParserInfo, command, execParser,
+                                      fullDesc, header, help, helper, info,
+                                      long, metavar, optional, progDesc, short,
+                                      strOption, subparser, (<**>))
 
 -----------------------------------------------------------------------------
 -- * CLI options model
