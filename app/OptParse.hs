@@ -30,7 +30,15 @@ data SingleOutput
 
 -- | Parser for single source to location
 pConvertSingle :: Parser Options
-pConvertSingle = ConvertSingle <$> pInputFile <*> pOutputFile
+pConvertSingle = ConvertSingle <$> pSingleInput <*> pSingleOutput
+
+pSingleInput :: Parser SingleInput
+pSingleInput =
+    fromMaybe Stdin <$> optional pInputFile
+
+pSingleOutput :: Parser SingleOutput
+pSingleOutput =
+    fromMaybe Stdout <$> optional pOutputFile
 
 -- | Input file parser
 pInputFile :: Parser SingleInput
