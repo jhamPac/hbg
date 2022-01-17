@@ -26,6 +26,31 @@ data SingleOutput
     deriving Show
 
 -----------------------------------------------------------------------------
+-- * Parer
+
+-- | Parse command-line options
+
+parse :: IO Options
+parse = execParser opts
+
+opts :: ParserInfo Options
+opts =
+    info (pOptions <**> helper)
+        (
+            fullDesc
+            <> header "hbg - a static blog generator"
+            <> progDesc "Convert markup file or directories to HTML"
+        )
+
+pOptions :: Parser Options
+pOptions =
+    subparser
+        (
+            command "convert" (info (helper <*> pConvertSingle) (progDesc "Convert a single markup source to HTML"))
+            <> command "convert-dir" (info (helper <*> pConvertDir) (progDesc "Convert a directory of markeup files to HTML"))
+        )
+
+-----------------------------------------------------------------------------
 -- * Single source and output parsers
 
 -- | Parser for single source to location
